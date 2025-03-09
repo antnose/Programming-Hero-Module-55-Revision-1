@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { data } from "react-router-dom";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -30,21 +29,6 @@ function App() {
         console.log(data);
         form.reset();
       });
-
-    // useEffect(() => {
-    //   fetch("http://localhost:3001/users", {
-    //     method: "POST",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(user),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       console.log(data);
-    //       form.reset();
-    //     });
-    // }, []);
   };
 
   return (

@@ -55,6 +55,16 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+    const dataBase = client.db("users");
+    const haiku = dataBase.collection("users");
+
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      console.log("New user", user);
+      const result = await haiku.insertOne(user);
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
@@ -62,7 +72,7 @@ async function run() {
     );
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
@@ -75,11 +85,6 @@ app.get("/", (req, res) => {
 
 app.get("/users", (req, res) => {
   res.send(users);
-});
-
-app.post("/users", (req, res) => {
-  console.log("Api is hitting ");
-  console.log(req.body);
 });
 
 app.listen(port, () => {
